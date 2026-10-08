@@ -1,0 +1,4 @@
+The dataset is to big for github, 
+to use it add the dataset to this folder under the name "UK_Accident.csv" (default name of the csv file)
+
+It is disponible for download at : https://www.kaggle.com/datasets/devansodariya/road-accident-united-kingdom-uk-dataset
