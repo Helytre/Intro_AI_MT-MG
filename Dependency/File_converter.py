@@ -1,22 +1,47 @@
 import pandas
 
+def selecting():
+    #reading cleaned file
+    dataset = pandas.read_csv("./Dataset/Clean_UK_Accident.csv")
+
+    #selecting 10k value / class
+    dataset = dataset.groupby('Accident_Severity').sample(n=10000, random_state=1)
+
+    return(dataset)
+
 def cleaning():
     #reading file
     dataset = pandas.read_csv("./Dataset/UK_Accident.csv")
 
     #delete useless column
-    dropping_column = ["Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location"]
+    dataset = dropping(dataset)
+
+    print(dataset["Accident_Severity"].value_counts())
+
+    #delete extreme value
+    dataset = deleting(dataset)
+
+    print(dataset["Accident_Severity"].value_counts())
+
+    #replacing str value by number
+
+    #writing clean dataset for machine learning use
+    dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
+
+    return(dataset)
+
+def dropping(dataset):
+    dropping_column = ["Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location", "Police_Force", "Local_Authority_(District)", "Pedestrian_Crossing-Human_Control", "Special_Conditions_at_Site", "Carriageway_Hazards", "Did_Police_Officer_Attend_Scene_of_Accident"]
     for column_name in dropping_column:
         if column_name in dataset.columns:
             dataset.drop(column_name, axis=1, inplace=True)
         else:
             print("Column do not exist : ", column_name)
+    return(dataset)
 
-    print(dataset["Accident_Severity"].value_counts())
-
-    #delete extreme value
+def deleting(dataset):
     #std method (4*std)
-    std_column = ["Number_of_Casualties"]
+    std_column = ["Number_of_Casualties","Number_of_Vehicles"]
     mean_values = {}
     std_values = {}
     for column_name in std_column:
@@ -26,7 +51,7 @@ def cleaning():
         dataset = dataset[dataset[column_name] <= (mean_values[column_name]+4*std_values[column_name])]
         dataset = dataset[dataset[column_name] >= (mean_values[column_name]-4*std_values[column_name])]
     
-    #IQR method : "Number_of_Casualties"
+    #IQR method : 
     IQR_column = []
     Q1 = {}
     Q3 = {}
@@ -37,17 +62,6 @@ def cleaning():
         dataset = dataset[dataset[column_name] <= (Q3[column_name]+1.5*(Q3[column_name]-Q1[column_name]))]
         dataset = dataset[dataset[column_name] >= (Q1[column_name]-1.5*(Q3[column_name]-Q1[column_name]))]
         
-
-    print(dataset["Accident_Severity"].value_counts())
-
-    #selecting 10k value / class
-    dataset = dataset.groupby('Accident_Severity').sample(n=10000)
-
-    #replacing str value by number
-
-    #writing clean dataset for machine learning use
-    dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
-
     return(dataset)
 
 cleaning()
