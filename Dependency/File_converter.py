@@ -16,12 +16,11 @@ def cleaning():
     #delete useless column
     dataset = dropping(dataset)
 
-    print(dataset["Accident_Severity"].value_counts())
-
     #delete extreme value
-    dataset = deleting(dataset)
+    dataset = deleting_extreme(dataset)
 
-    print(dataset["Accident_Severity"].value_counts())
+    #deleting low class count value
+    dataset = deleting_low(dataset)
 
     #replacing str value by number
 
@@ -31,7 +30,7 @@ def cleaning():
     return(dataset)
 
 def dropping(dataset):
-    dropping_column = ["Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location", "Police_Force", "Local_Authority_(District)", "Pedestrian_Crossing-Human_Control", "Special_Conditions_at_Site", "Carriageway_Hazards", "Did_Police_Officer_Attend_Scene_of_Accident"]
+    dropping_column = ["Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location", "Police_Force", "Local_Authority_(District)", "Local_Authority_(Highway)", "1st_Road_Number", "2nd_Road_Number", "Date", "Pedestrian_Crossing-Human_Control", "Special_Conditions_at_Site", "Carriageway_Hazards", "Did_Police_Officer_Attend_Scene_of_Accident"]
     for column_name in dropping_column:
         if column_name in dataset.columns:
             dataset.drop(column_name, axis=1, inplace=True)
@@ -39,7 +38,7 @@ def dropping(dataset):
             print("Column do not exist : ", column_name)
     return(dataset)
 
-def deleting(dataset):
+def deleting_extreme(dataset):
     #std method (4*std)
     std_column = ["Number_of_Casualties","Number_of_Vehicles"]
     mean_values = {}
@@ -63,5 +62,10 @@ def deleting(dataset):
         dataset = dataset[dataset[column_name] >= (Q1[column_name]-1.5*(Q3[column_name]-Q1[column_name]))]
         
     return(dataset)
+
+def deleting_low(dataset):
+    dataset = dataset[dataset["Speed_limit"] >= 20]
+    dataset = dataset[dataset["Urban_or_Rural_Area"] != 3]
+    return dataset
 
 cleaning()
