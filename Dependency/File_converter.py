@@ -7,7 +7,13 @@ def selecting():
     #selecting 10k value / class
     dataset = dataset.groupby('Accident_Severity').sample(n=10000, random_state=1)
 
-    return(dataset)
+    data_training = dataset.sample(frac=0.75, random_state=1)
+    data_testing = dataset.drop(data_training.index)
+
+    data_training.to_csv("./Dataset/Training_UK_Accident.csv")
+    data_testing.to_csv("./Dataset/Testing_UK_Accident.csv")
+
+    return(data_training, data_testing)
 
 def cleaning():
     #reading file
@@ -66,6 +72,6 @@ def deleting_extreme(dataset):
 def deleting_low(dataset):
     dataset = dataset[dataset["Speed_limit"] >= 20]
     dataset = dataset[dataset["Urban_or_Rural_Area"] != 3]
-    return dataset
+    return(dataset)
 
-cleaning()
+selecting()
