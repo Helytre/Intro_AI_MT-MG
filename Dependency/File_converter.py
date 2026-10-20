@@ -1,4 +1,11 @@
 import pandas
+from .dict_map import Dict_map
+
+
+def remap_column(dataset, category, map):
+    dataset[category] = dataset[category].map(map).fillna(-1)
+    return dataset
+
 
 def selecting():
     #reading cleaned file
@@ -16,6 +23,7 @@ def selecting():
     return(data_training, data_testing)
 
 def cleaning():
+    column_maps = Dict_map().column_maps
     #reading file
     dataset = pandas.read_csv("./Dataset/UK_Accident.csv")
 
@@ -30,7 +38,10 @@ def cleaning():
 
     #replacing str value by number
 
-    #writing clean dataset for machine learning use
+    #replacing string values by integers
+    for column, map in column_maps.items():
+        dataset = remap_column(dataset, column, map)
+    print(dataset)
     dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
 
     return(dataset)
