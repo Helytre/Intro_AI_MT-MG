@@ -19,7 +19,7 @@ class Dict_map:
         }
 
         self.junction_control_map = {
-            'None': 0,
+            'no_control': 0,
             'Giveway or uncontrolled': 1,
             'Automatic traffic signal': 2,
             'Stop Sign': 3,

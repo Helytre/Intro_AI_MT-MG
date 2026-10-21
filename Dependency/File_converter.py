@@ -1,12 +1,6 @@
 import pandas
 from Dict_map import Dict_map
 
-
-def remap_column(dataset, category, map):
-    dataset[category] = dataset[category].map(map).fillna(-1)
-    return dataset
-
-
 def selecting():
     #reading cleaned file
     dataset = pandas.read_csv("./Dataset/Clean_UK_Accident.csv")
@@ -26,7 +20,7 @@ def selecting():
 
 def cleaning():
     #reading file
-    dataset = pandas.read_csv("./Dataset/UK_Accident.csv")
+    dataset = pandas.read_csv("./Dataset/UK_Accident.csv") #, keep_default_na=False
 
     #delete useless column
     dataset = dropping(dataset)
@@ -38,10 +32,7 @@ def cleaning():
     dataset = deleting_low(dataset)
 
     #replacing string values by integers
-    column_maps = Dict_map().column_maps
-    for column, map in column_maps.items():
-        dataset = remap_column(dataset, column, map)
-    print(dataset)
+    dataset = remap_column(dataset)
 
     #writing cleaned dataset into new file
     dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
@@ -86,5 +77,15 @@ def deleting_low(dataset):
     dataset = dataset[dataset["Speed_limit"] >= 20]
     dataset = dataset[dataset["Urban_or_Rural_Area"] != 3]
     return(dataset)
+
+def remap_column(dataset):
+    dataset["Junction_Control"] = dataset["Junction_Control"].fillna("no_control")
+    column_maps = Dict_map().column_maps
+    for column, map in column_maps.items():
+        if column in dataset.columns:
+            dataset[column] = dataset[column].map(map).dropna()
+        else:
+            print("Column do not exist : ", column)
+    return dataset
 
 cleaning()
