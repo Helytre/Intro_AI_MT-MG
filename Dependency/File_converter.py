@@ -1,5 +1,5 @@
 import pandas
-from .dict_map import Dict_map
+from Dict_map import Dict_map
 
 
 def remap_column(dataset, category, map):
@@ -14,16 +14,17 @@ def selecting():
     #selecting 10k value / class
     dataset = dataset.groupby('Accident_Severity').sample(n=10000, random_state=1)
 
+    #splitting data
     data_training = dataset.sample(frac=0.75, random_state=1)
     data_testing = dataset.drop(data_training.index)
 
+    #writing splitted data into new file
     data_training.to_csv("./Dataset/Training_UK_Accident.csv")
     data_testing.to_csv("./Dataset/Testing_UK_Accident.csv")
 
     return(data_training, data_testing)
 
 def cleaning():
-    column_maps = Dict_map().column_maps
     #reading file
     dataset = pandas.read_csv("./Dataset/UK_Accident.csv")
 
@@ -36,12 +37,13 @@ def cleaning():
     #deleting low class count value
     dataset = deleting_low(dataset)
 
-    #replacing str value by number
-
     #replacing string values by integers
+    column_maps = Dict_map().column_maps
     for column, map in column_maps.items():
         dataset = remap_column(dataset, column, map)
     print(dataset)
+
+    #writing cleaned dataset into new file
     dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
 
     return(dataset)
@@ -85,4 +87,4 @@ def deleting_low(dataset):
     dataset = dataset[dataset["Urban_or_Rural_Area"] != 3]
     return(dataset)
 
-selecting()
+cleaning()
