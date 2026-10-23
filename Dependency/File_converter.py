@@ -46,7 +46,7 @@ def cleaning():
     return(dataset)
 
 def dropping(dataset):
-    dropping_column = ["Accident_Index","Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location", "Police_Force", "Local_Authority_(District)", "Local_Authority_(Highway)", "1st_Road_Number", "2nd_Road_Number", "Date", "Pedestrian_Crossing-Human_Control", "Special_Conditions_at_Site", "Carriageway_Hazards"]
+    dropping_column = ["Accident_Index","Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location", "Police_Force", "Local_Authority_(District)", "Local_Authority_(Highway)", "1st_Road_Number", "2nd_Road_Number", "Date", "Pedestrian_Crossing-Human_Control", "Special_Conditions_at_Site", "Carriageway_Hazards","Unnamed: 0.1", "Unnamed: 0"]
     for column_name in dropping_column:
         if column_name in dataset.columns:
             dataset.drop(column_name, axis=1, inplace=True)
