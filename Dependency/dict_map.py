@@ -1,3 +1,5 @@
+#map for class
+
 class Dict_map:
     def __init__(self):
     

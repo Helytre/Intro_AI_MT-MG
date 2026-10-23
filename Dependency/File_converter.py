@@ -1,5 +1,5 @@
 import pandas
-from dict_map import Dict_map
+from Dependency.Dict_map import Dict_map
 
 def selecting():
     #reading cleaned file
@@ -92,5 +92,3 @@ def time_converter(dataset):
     time = dataset['Time'].str.split(':')
     dataset['Time'] = (60*time.str[0].astype(float) + time.str[1].astype(float)).fillna(-1).astype(int)
     return dataset
-
-cleaning()
