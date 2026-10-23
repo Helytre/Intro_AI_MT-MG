@@ -2,7 +2,7 @@ from sklearn.svm import SVC
 
 def Second_SVM(training_data, testing_data, args):
 
-    svm = SVC(*args)
+    svm = SVC(**args)
 
     training_data_X = training_data.loc[ : , training_data.columns != "Accident_Severity"]
     training_data_Y = training_data["Accident_Severity"]
