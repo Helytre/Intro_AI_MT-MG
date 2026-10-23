@@ -37,6 +37,9 @@ def cleaning():
     #converting time into minutes since midnight
     dataset = time_converter(dataset)
 
+    #centering coord
+    dataset = coord_converter(dataset)
+
     #writing cleaned dataset into new file
     dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
 
@@ -88,7 +91,17 @@ def remap_column(dataset):
     return dataset
 
 def time_converter(dataset):
-    #"HH:MM" -> minutes since midnight (-1 if missing)
+    #"HH:MM" -> minutes since midnight
+    dataset = dataset.dropna(subset=['Time'])
     time = dataset['Time'].str.split(':')
-    dataset['Time'] = (60*time.str[0].astype(float) + time.str[1].astype(float)).fillna(-1).astype(int)
+    dataset['Time'] = (60*time.str[0].astype(float) + time.str[1].astype(float)).astype(int)
+    return dataset
+
+def coord_converter(dataset):
+
+    longitude = dataset["Longitude"]
+    dataset["Longitude"] = longitude-dataset["Longitude"].mean()
+    longitude = dataset["Latitude"]
+    dataset["Latitude"] = longitude-dataset["Latitude"].mean()
+    
     return dataset
