@@ -1,5 +1,5 @@
 import pandas
-from Dict_map import Dict_map
+from .Dict_map import Dict_map
 
 def selecting():
     #reading cleaned file
@@ -20,7 +20,7 @@ def selecting():
 
 def cleaning():
     #reading file
-    dataset = pandas.read_csv("./Dataset/UK_Accident.csv") #, keep_default_na=False
+    dataset = pandas.read_csv("./Dataset/UK_Accident.csv")
 
     #delete useless column
     dataset = dropping(dataset)
@@ -40,12 +40,10 @@ def cleaning():
     return(dataset)
 
 def dropping(dataset):
-    dropping_column = ["Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location", "Police_Force", "Local_Authority_(District)", "Local_Authority_(Highway)", "1st_Road_Number", "2nd_Road_Number", "Date", "Pedestrian_Crossing-Human_Control", "Special_Conditions_at_Site", "Carriageway_Hazards"]
+    dropping_column = ["Accident_Index","Location_Easting_OSGR", "Location_Northing_OSGR", "LSOA_of_Accident_Location", "Police_Force", "Local_Authority_(District)", "Local_Authority_(Highway)", "1st_Road_Number", "2nd_Road_Number", "Date", "Pedestrian_Crossing-Human_Control", "Special_Conditions_at_Site", "Carriageway_Hazards"]
     for column_name in dropping_column:
         if column_name in dataset.columns:
             dataset.drop(column_name, axis=1, inplace=True)
-        else:
-            print("Column do not exist : ", column_name)
     return(dataset)
 
 def deleting_extreme(dataset):
@@ -84,8 +82,6 @@ def remap_column(dataset):
     for column, map in column_maps.items():
         if column in dataset.columns:
             dataset[column] = dataset[column].map(map).dropna()
-        else:
-            print("Column do not exist : ", column)
     return dataset
 
 cleaning()
