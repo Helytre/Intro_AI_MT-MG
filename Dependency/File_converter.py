@@ -1,5 +1,5 @@
 import pandas
-from .Dict_map import Dict_map
+from dict_map import Dict_map
 
 def selecting():
     #reading cleaned file
@@ -33,6 +33,9 @@ def cleaning():
 
     #replacing string values by integers
     dataset = remap_column(dataset)
+
+    #converting time into minutes since midnight
+    dataset = time_converter(dataset)
 
     #writing cleaned dataset into new file
     dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
@@ -82,6 +85,12 @@ def remap_column(dataset):
     for column, map in column_maps.items():
         if column in dataset.columns:
             dataset[column] = dataset[column].map(map).dropna()
+    return dataset
+
+def time_converter(dataset):
+    #"HH:MM" -> minutes since midnight (-1 if missing)
+    time = dataset['Time'].str.split(':')
+    dataset['Time'] = (60*time.str[0].astype(float) + time.str[1].astype(float)).fillna(-1).astype(int)
     return dataset
 
 cleaning()

@@ -26,12 +26,6 @@ class Dict_map:
             'Authorised person': 4,
         }
 
-        self.pedestrian_human_control_map = {
-            'None within 50 metres': 0,
-            'Control by other authorised person': 1,
-            'Control by school crossing patrol': 2,
-        }
-
         self.pedestrian_physical_facilities_map = {
             'No physical crossing within 50 meters': 0,
             'Pedestrian phase at traffic signal junction': 1,
@@ -62,26 +56,6 @@ class Dict_map:
             'Normal': 5,
         }
 
-        self.special_conditions_map = {
-            'None': 0,
-            'Roadworks': 1,
-            'Ol or diesel': 2,
-            'Mud': 3,
-            'Road surface defective': 4,
-            'Auto traffic singal out': 5,
-            'Permanent sign or marking defective or obscured': 6,
-            'Auto traffic signal partly defective': 7,
-        }
-
-        self.carriageway_hazards_map = {
-            'None': 0,
-            'Other object in carriageway': 1,
-            'Any animal (except a ridden horse)': 2,
-            'Pedestrian in carriageway (not injured)': 3,
-            'Involvement with previous accident': 4,
-            'Dislodged vehicle load in carriageway': 5,
-        }
-
         self.police_attend_map = {
             'No': 0,
             'Yes': 1,
@@ -91,12 +65,9 @@ class Dict_map:
         self.column_maps = {
             "Road_Type": self.road_type_map,
             "Junction_Control": self.junction_control_map,
-            "Pedestrian_Crossing-Human_Control": self.pedestrian_human_control_map,
             "Pedestrian_Crossing-Physical_Facilities": self.pedestrian_physical_facilities_map,
             "Light_Conditions": self.lightning_map,
             "Weather_Conditions": self.weather_map,
             "Road_Surface_Conditions": self.road_surface_map,
-            "Special_Conditions_at_Site": self.special_conditions_map,
-            "Carriageway_Hazards": self.carriageway_hazards_map,
             "Did_Police_Officer_Attend_Scene_of_Accident": self.police_attend_map,
         }
