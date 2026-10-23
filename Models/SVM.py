@@ -1,6 +1,6 @@
 from sklearn.svm import SVC
 
-def Second_SVM(training_data, testing_data, args):
+def SVM_svc(training_data, testing_data, args):
 
     svm = SVC(**args)
 

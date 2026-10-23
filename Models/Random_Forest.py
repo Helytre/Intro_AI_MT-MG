@@ -1,6 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier
 
-def First_Forest(training_data, testing_data, args):
+def Forest(training_data, testing_data, args):
 
     R_Forest = RandomForestClassifier(**args)
 

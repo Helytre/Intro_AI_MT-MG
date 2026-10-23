@@ -63,6 +63,15 @@ class Dict_map:
             'Yes': 1,
         }
 
+        self.second_Road_Class_map = {
+            -1:0,
+            1:1,
+            2:2,
+            3:3,
+            4:4,
+            5:5,
+            6:6,
+        }
 
         self.column_maps = {
             "Road_Type": self.road_type_map,
@@ -72,4 +81,5 @@ class Dict_map:
             "Weather_Conditions": self.weather_map,
             "Road_Surface_Conditions": self.road_surface_map,
             "Did_Police_Officer_Attend_Scene_of_Accident": self.police_attend_map,
+            "2nd_Road_Class": self.second_Road_Class_map,
         }
