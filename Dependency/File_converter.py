@@ -1,5 +1,5 @@
 import pandas
-from Dependency.Dict_map import Dict_map
+from Dependency.dict_map import Dict_map
 
 def selecting():
     #reading cleaned file
@@ -41,7 +41,7 @@ def cleaning():
     dataset = coord_converter(dataset)
 
     #writing cleaned dataset into new file
-    dataset.to_csv("./Dataset/Clean_UK_Accident.csv")
+    dataset.to_csv("./Dataset/Clean_UK_Accident.csv", index=False)
 
     return(dataset)
 
