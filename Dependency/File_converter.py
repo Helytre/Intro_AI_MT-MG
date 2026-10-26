@@ -1,5 +1,5 @@
 import pandas
-from Dependency.dict_map import Dict_map
+from Dependency.Dict_map import Dict_map
 
 def selecting():
     #reading cleaned file
@@ -13,8 +13,8 @@ def selecting():
     data_testing = dataset.drop(data_training.index)
 
     #writing splitted data into new file
-    data_training.to_csv("./Dataset/Training_UK_Accident.csv")
-    data_testing.to_csv("./Dataset/Testing_UK_Accident.csv")
+    data_training.to_csv("./Dataset/Training_UK_Accident.csv", index=False)
+    data_testing.to_csv("./Dataset/Testing_UK_Accident.csv", index=False)
 
     return(data_training, data_testing)
 
