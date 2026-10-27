@@ -6,7 +6,7 @@ def selecting():
     dataset = pandas.read_csv("./Dataset/Clean_UK_Accident.csv")
 
     #selecting 10k value / class
-    dataset = dataset.groupby('Accident_Severity').sample(n=10000, random_state=1)
+    dataset = dataset.groupby('Accident_Severity').sample(n=15000, random_state=1)
 
     #splitting data
     data_training = dataset.sample(frac=0.75, random_state=1)
