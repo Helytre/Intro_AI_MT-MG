@@ -1,5 +1,5 @@
 import pandas
-from Dependency.dict_map import Dict_map
+from Dependency.Dict_map import Dict_map
 
 def selecting():
     #reading cleaned file
