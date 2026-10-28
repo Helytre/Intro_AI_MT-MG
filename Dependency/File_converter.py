@@ -40,6 +40,9 @@ def cleaning():
     #centering coord
     dataset = coord_converter(dataset)
 
+    #dropping leftover na value
+    dataset = dataset.dropna()
+
     #writing cleaned dataset into new file
     dataset.to_csv("./Dataset/Clean_UK_Accident.csv", index=False)
 
