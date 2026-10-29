@@ -3,7 +3,7 @@ import pandas
 def one_hot(dataset):
     one_hot_column = ["Road_Type", "Junction_Control", "Pedestrian_Crossing-Physical_Facilities",
                       "Light_Conditions", "Weather_Conditions", "Road_Surface_Conditions",
-                      "1st_Road_Class", "2nd_Road_Class", "Day_of_Week"]
+                      "1st_Road_Class", "2nd_Road_Class", "Day_of_Week","Urban_or_Rural_Area","Speed_limit"]
     return pandas.get_dummies(dataset, columns=one_hot_column, dtype=int)
 
 

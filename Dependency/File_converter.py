@@ -1,23 +1,6 @@
 import pandas
 from Dependency.Dict_map import Dict_map
 
-def selecting():
-    #reading cleaned file
-    dataset = pandas.read_csv("./Dataset/Clean_UK_Accident.csv")
-
-    #selecting 10k value / class
-    dataset = dataset.groupby('Accident_Severity').sample(n=15000)
-
-    #splitting data
-    data_training = dataset.sample(frac=0.75)
-    data_testing = dataset.drop(data_training.index)
-
-    #writing splitted data into new file
-    data_training.to_csv("./Dataset/Training_UK_Accident.csv", index=False)
-    data_testing.to_csv("./Dataset/Testing_UK_Accident.csv", index=False)
-
-    return(data_training, data_testing)
-
 def cleaning():
     #reading file
     dataset = pandas.read_csv("./Dataset/UK_Accident.csv")
