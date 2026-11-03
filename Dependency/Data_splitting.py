@@ -8,8 +8,11 @@ def selecting():
     dataset = dataset.groupby('Accident_Severity').sample(n=15000)
 
     #splitting data
-    data_training = dataset.sample(frac=0.75)
+    data_training = dataset.groupby('Accident_Severity').sample(frac=0.8)
     data_testing = dataset.drop(data_training.index)
+
+    print(data_training['Accident_Severity'].value_counts())
+    print(data_testing['Accident_Severity'].value_counts())
 
     return({"training_data":data_training,"testing_data":data_testing})
 
